@@ -10,7 +10,16 @@
 
 <body class="bg-gray-200 flex justify-center w-full">
     <div class="login w-[500] p-8 shadow-lg bg-white mt-10 rounded-xl">
-        <form action="" class="flex flex-col gap-4">
+
+    <pre>
+        <?php
+            print_r($_POST);
+            // print_r($_GET);
+            // print_r($_REQUEST);
+        ?>
+    </pre>
+
+        <form action="" class="flex flex-col gap-4" method="post">
             <div class="field">
                 <label for="name">Name</label>
                 <input type="text" class="p-3 border w-full" name="name">
