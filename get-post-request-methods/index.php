@@ -8,20 +8,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-200 flex just">
-    <div class="login">
-        <form action="">
-            <div class="">
+<body class="bg-gray-200 flex justify-center w-full">
+    <div class="login w-[500] p-8 shadow-lg bg-white mt-10 rounded-xl">
+        <form action="" class="flex flex-col gap-4">
+            <div class="field">
                 <label for="name">Name</label>
-                <input type="text" name="name">
+                <input type="text" class="p-3 border w-full" name="name">
             </div>
-            <div class="">
+            <div class="field">
                 <label for="email">Email</label>
-                <input type="text" name="email">
+                <input type="text" class="p-3 border w-full" name="email">
             </div>
-            <div class="">
+            <div class="field">
                 <label for="phone">Phone</label>
-                <input type="text" name="phone">
+                <input type="text" class="p-3 border w-full" name="phone">
+            </div>
+            <div class="field">
+                <button class="py-3 text-white px-5 bg-red-500 rounded-sm">Login</button>
             </div>
 
         </form>
