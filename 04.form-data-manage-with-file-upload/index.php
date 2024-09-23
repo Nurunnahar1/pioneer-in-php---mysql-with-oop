@@ -93,28 +93,34 @@ print_r($_POST);
                         <form action="" method="post">
                             <div class="my-3">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" name="name" value="">
+                                <input type="text" class="form-control" name="name" value="<?php echo old('name'); ?>">
                                 <p> <?php echo $nameMsg ?? ''; ?></p>
                             </div>
                             <div class="my-3">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" name="email" value="">
+                                <input type="text" class="form-control" name="email"
+                                    value="<?php echo old('email'); ?>">
                                 <p> <?php echo $emailMsg ?? ''; ?></p>
                             </div>
                             <div class="my-3">
                                 <label for="phone">Phone</label>
-                                <input type="text" class="form-control" name="phone" value="">
+                                <input type="text" class="form-control" name="phone"
+                                    value="<?php echo old('phone'); ?>">
                                 <p> <?php echo $phoneMsg ?? ''; ?></p>
                             </div>
                             <div class="my-3">
                                 <label for="location">Location</label>
-                                <select name="location" class="form-control">
-                                    <option value="">-select-</option>
-                                    <option value="Mirpur">Mirpur</option>
-                                    <option value="Uttora">Uttora</option>
-                                    <option value="Badda">Badda</option>
-                                    <option value="Motizil">Motizil</option>
-                                </select>
+                              <select name="location" class="form-control">
+                                  <option value="">-select-</option>
+                                  <option <?php echo old('location') == "Mirpur" ? 'selected' : ''; ?> value="Mirpur">
+                                      Mirpur</option>
+                                  <option <?php echo old('location') == "Uttora" ? 'selected' : ''; ?> value="Uttora">
+                                      Uttora</option>
+                                  <option <?php echo old('location') == "Badda" ? 'selected' : ''; ?> value="Badda">
+                                      Badda</option>
+                                  <option <?php echo old('location') == "Motizil" ? 'selected' : ''; ?> value="Motizil">
+                                      Motizil</option>
+                              </select>
                                 <p> <?php echo $locationMsg ?? ''; ?></p>
                             </div>
                             <div class="my-3">
