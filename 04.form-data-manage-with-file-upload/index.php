@@ -1,6 +1,6 @@
-<?php  
-if(file_exists(__DIR__.'/autoload.php')){
-    require_once __DIR__.'/autoload.php';
+<?php
+if (file_exists(__DIR__ . '/autoload.php')) {
+    require_once __DIR__ . '/autoload.php';
 }
 
 ?>
@@ -23,15 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
+    $photo = $_POST['photo'];
     $location = $_POST['location'];
     $gender = $_POST['gender'];
 
+    // $msg = '';
 
-
-        // $msg = '';
-
-
-     // Form validation
+    // Form validation
     //  if (empty($name)) {
     //         $msg = createAlert("Name field is required");
     //  }
@@ -48,61 +46,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //         $msg = createAlert("gender field is required");
     //  }
 
-
-
-
-        $nameMsg = $emailMsg = $phoneMsg = $locationMsg = $genderMsg = '';
-
+    $nameMsg = $emailMsg = $phoneMsg = $locationMsg = $genderMsg = $photoMsg ='';
 
     $message = '';
 
-    
-
-        // Form validation
-        if (empty($name)) {
+    // Form validation
+    if (empty($name)) {
         $nameMsg = createAlert("Name field is required");
-      
-        }
-         if (empty($email)) {
+
+    }
+    if (empty($email)) {
         $emailMsg = createAlert("Email field is required");
-    
-        }
+
+    }
     if (empty($phone)) {
         $phoneMsg = createAlert("Phone field is required");
- 
-        }
-         if (empty($location)) {
+
+    }
+    if (empty($photo)) {
+        $photoMsg = createAlert("photo field is required");
+
+    }
+    if (empty($location)) {
         $locationMsg = createAlert("Location field is required");
-   
-        }
-        if (empty($gender)) {
+
+    }
+    if (empty($gender)) {
         $genderMsg = createAlert("Gender field is required");
-      
-        }
-      
 
-           
-            if (empty($nameMsg) && empty($emailMsg) && empty($phoneMsg) && empty($locationMsg) && empty($genderMsg)) {
-                $message = message("Data submitted successfully", "success");
-                reset_form();  
-            } else {
-                $message = message("Please correct the highlighted errors.", "danger");
-            }
-          
+    }
+    if (empty($nameMsg) && empty($emailMsg) && empty($phoneMsg) && empty($locationMsg) && empty($genderMsg) && empty($photoMsg)) {
+            $data= json_decode(file_get_contents('./db/data.json'), true);
+            array_push($data, [
+                "name" => $name,
+                "email" => $email,
+                "phone" => $phone,
+                "photo" => $photo,
+                "location" => $location,
+                "gender" => $gender,
 
-     
+            ]);
+            file_put_contents('./db/data.json',json_encode($data));
+
+        $message = message("Data submitted successfully", "success");
+        reset_form();
+    } else {
+        $message = message("Please correct the highlighted errors.", "danger");
+    }
+ 
 
 }
-
- 
-
-
 
 ?>
 
     <div class="container my-5">
-        <div class="row justify-content-center my-5">
-            <div class="col-md-5 my-3">
+        <div class="row   my-5">
+            <div class="col-md-4 my-3">
                 <div class="card shadow">
                     <div class="card-header">
                         <h2 class="card-title">Create an account</h2>
@@ -128,6 +127,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <input type="text" class="form-control" name="phone"
                                     value="<?php echo old('phone'); ?>">
                                 <p> <?php echo $phoneMsg ?? ''; ?></p>
+                            </div>
+                            <div class="my-3">
+                                <label for="file">Photo (url only)</label>
+                                <input type="text" class="form-control" name="photo"
+                                    value="<?php echo old('photo'); ?>">
+                                <p> <?php echo $photoMsg ?? ''; ?></p>
                             </div>
                             <div class="my-3">
                                 <label for="location">Location</label>
@@ -158,6 +163,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-8 my-3">
+                <div class="row">
+
+                    <?php  
+                    $teamData = json_decode(file_get_contents('./db/data.json'));
+                    foreach ($teamData as $singleData):
+                    
+                    ?>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="w-100" src="<?php  echo $singleData->photo ?>" alt="">
+                                <h2>Name: <?php echo $singleData->name; ?></h2>
+                                <p>Location: <?php echo $singleData->location; ?></p>
+                                <p>Gender: <?php echo $singleData->gender; ?></p>
+                              
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php endforeach; ?>
+
                 </div>
             </div>
         </div>
