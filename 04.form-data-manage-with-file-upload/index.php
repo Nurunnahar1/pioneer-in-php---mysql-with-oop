@@ -53,29 +53,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $nameMsg = $emailMsg = $phoneMsg = $locationMsg = $genderMsg = '';
 
+
+    $message = '';
+
+    
+
         // Form validation
         if (empty($name)) {
         $nameMsg = createAlert("Name field is required");
+      
         }
-        if (empty($email)) {
+         if (empty($email)) {
         $emailMsg = createAlert("Email field is required");
+    
         }
-        if (empty($phone)) {
+    if (empty($phone)) {
         $phoneMsg = createAlert("Phone field is required");
+ 
         }
-        if (empty($location)) {
+         if (empty($location)) {
         $locationMsg = createAlert("Location field is required");
+   
         }
         if (empty($gender)) {
         $genderMsg = createAlert("Gender field is required");
+      
         }
+      
+
+           
+            if (empty($nameMsg) && empty($emailMsg) && empty($phoneMsg) && empty($locationMsg) && empty($genderMsg)) {
+                $message = message("Data submitted successfully", "success");
+                reset_form();  
+            } else {
+                $message = message("Please correct the highlighted errors.", "danger");
+            }
+          
+
+     
 
 }
 
  
-
-
-print_r($_POST); 
 
 
 
@@ -90,6 +109,8 @@ print_r($_POST);
                     </div>
                     <div class="card-body">
 
+                        <p><?php echo $message; ?></p>
+
                         <form action="" method="post">
                             <div class="my-3">
                                 <label for="name">Name</label>
@@ -98,7 +119,7 @@ print_r($_POST);
                             </div>
                             <div class="my-3">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" name="email"
+                                <input type="email" class="form-control" name="email"
                                     value="<?php echo old('email'); ?>">
                                 <p> <?php echo $emailMsg ?? ''; ?></p>
                             </div>
@@ -110,22 +131,26 @@ print_r($_POST);
                             </div>
                             <div class="my-3">
                                 <label for="location">Location</label>
-                              <select name="location" class="form-control">
-                                  <option value="">-select-</option>
-                                  <option <?php echo old('location') == "Mirpur" ? 'selected' : ''; ?> value="Mirpur">
-                                      Mirpur</option>
-                                  <option <?php echo old('location') == "Uttora" ? 'selected' : ''; ?> value="Uttora">
-                                      Uttora</option>
-                                  <option <?php echo old('location') == "Badda" ? 'selected' : ''; ?> value="Badda">
-                                      Badda</option>
-                                  <option <?php echo old('location') == "Motizil" ? 'selected' : ''; ?> value="Motizil">
-                                      Motizil</option>
-                              </select>
+                                <select name="location" class="form-control">
+                                    <option value="">-select-</option>
+                                    <option <?php echo old('location') == "Mirpur" ? 'selected' : ''; ?> value="Mirpur">
+                                        Mirpur</option>
+                                    <option <?php echo old('location') == "Uttora" ? 'selected' : ''; ?> value="Uttora">
+                                        Uttora</option>
+                                    <option <?php echo old('location') == "Badda" ? 'selected' : ''; ?> value="Badda">
+                                        Badda</option>
+                                    <option <?php echo old('location') == "Motizil" ? 'selected' : ''; ?>
+                                        value="Motizil"> Motizil</option>
+                                </select>
                                 <p> <?php echo $locationMsg ?? ''; ?></p>
                             </div>
                             <div class="my-3">
-                                <label for=""><input type="radio" value="Male" name="gender">Male</label>
-                                <label for=""><input type="radio" value="Female" name="gender">Female</label>
+                                <label for=""><input type="radio"
+                                        <?php echo old('gender') == "Male" ? 'checked' : ''; ?> value="Male"
+                                        name="gender">Male</label>
+                                <label for=""><input type="radio"
+                                        <?php echo old('gender') == "Female" ? 'checked' : ''; ?> value="Female"
+                                        name="gender">Female</label>
                                 <p> <?php echo $genderMsg ?? ''; ?></p>
                             </div>
                             <div class="my-3">
