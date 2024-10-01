@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.profile-photo {}
+
+.upload {}
+
+ .upload .profile-photo {}
+
+ .upload img {}
+
+.preview-image {
+   
+    position: relative;
+}
+
+.preview-image  button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+    color: red;
+
+}
+.preview-image img {
+    width: 100%;
+}
