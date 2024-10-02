@@ -33,12 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             reset_form();
         }
 
-
         //get file extension
         $file_array = explode(".", $photo_name);
         print_r($file_array);
 }
 ?>
+
 
     <div class="container my-5">
         <div class="row my-5 justify-content-center">
