@@ -30,3 +30,10 @@
 .preview-image img {
     width: 100%;
 }
+.uploader{
+    display: block;
+}
+.uploader img{
+    width: 70px;
+    cursor: pointer;
+}
