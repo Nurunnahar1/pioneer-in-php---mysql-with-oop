@@ -4,14 +4,14 @@
     box-sizing: border-box;
 }
 
- 
+
 
 .preview-image {
-   
+
     position: relative;
 }
 
-.preview-image  button {
+.preview-image button {
     position: absolute;
     top: 5px;
     right: 10px;
@@ -21,13 +21,21 @@
     color: red;
 
 }
+
 .preview-image img {
     width: 100%;
 }
-.uploader{
+
+.uploader {
     display: block;
 }
-.uploader img{
+
+.uploader img {
+    width: 70px;
+    cursor: pointer;
+}
+
+.gallery-uploader img {
     width: 70px;
     cursor: pointer;
 }
