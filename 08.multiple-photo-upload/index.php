@@ -47,9 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $gallery_photos_array = explode('.', $gallery_photos_name);
             $gallery_photos_extension = strtolower(end($gallery_photos_array));
 
-            //gallery photos name unique
-            // $unique_gallery_filename = time() . '_' . rand(100000, 100000000) . '.' . $gallery_photos_extension;
-            $unique_gallery_filename = time() . '_' . rand(100000, 100000000) . '.' . $gallery_photos_extension;
+            //gallery photos name unique 
+               $unique_gallery_filename = time() . '_' . rand(100000, 100000000) . '.' . $gallery_photos_extension;
 
             move_uploaded_file($gallery_tmp_name, 'gallery/' . $unique_gallery_filename);
         }
@@ -108,9 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </form>
                         <?php  
-                            echo "<pre>";
-                            print_r($_FILES['photo_gallery']);
-                            echo  "</pre>";
+                            // echo "<pre>";
+                            // print_r($_FILES['photo_gallery']);
+                            // echo  "</pre>";
 
                         ?>
                     </div>
