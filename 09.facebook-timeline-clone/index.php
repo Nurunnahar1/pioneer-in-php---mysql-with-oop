@@ -502,7 +502,7 @@ if(file_exists(__DIR__ . '/autoload.php')){
                         <div class="comments-area"></div>
                     </div>
                 </div>
-             
+
             </div>
         </div>
     </div>
@@ -527,7 +527,7 @@ if(file_exists(__DIR__ . '/autoload.php')){
                         </div>
                         <div class="my-2">
                             <label for="">Post Content</label>
-                            <textarea name="" name="post_content" class="form-control" id=""></textarea>
+                            <textarea name="post_content" class="form-control" id=""></textarea>
                         </div>
                         <div class="my-2">
                             <label for="">Post Photo</label>
@@ -535,7 +535,7 @@ if(file_exists(__DIR__ . '/autoload.php')){
                         </div>
                         <div class="my-2">
                             <label for="">Video Content</label>
-                            <input type="file" placeholder="video" name="vodeo_content" class="form-control">
+                            <input type="file" placeholder="video" name="post_video" class="form-control">
                         </div>
                         <div class="my-2">
                             <input type="submit" name="post_submit" class="btn btn-primary d-block w-100" value="Post">
