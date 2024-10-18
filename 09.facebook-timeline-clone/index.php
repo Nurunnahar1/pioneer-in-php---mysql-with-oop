@@ -265,6 +265,9 @@ if(file_exists(__DIR__ . '/autoload.php')){
                 </div>
 
                 <!-- Create Post Box  -->
+
+                <!-- method for post modal -->
+                <?php include_once('post_function.php'); ?>
                 <div class="create-post">
                     <div class="create-post-header">
                         <img src="./assets/images/user.png" alt="" />
@@ -288,15 +291,22 @@ if(file_exists(__DIR__ . '/autoload.php')){
                         </ul>
                     </div>
                 </div>
+                <?php
 
+$posts = array_reverse(json_decode(file_get_contents("./db/posts.json")));
+
+if(count($posts)>0):
+
+    foreach($posts as $post):
+?>
                 <!-- User Post  -->
                 <div class="user-post">
                     <div class="user-post-header">
                         <div class="post-info">
-                            <img src="./assets/images/user.png" alt="" />
+                            <img src="media/user_photo/<?php echo $post->user_photo; ?>" alt="" />
                             <div class="user-details">
-                                <a class="author" href="#">Asraful Haque</a>
-                                <span>10m
+                                <a class="author" href="#"> <?php echo $post->user_name; ?></a>
+                                <span><?php echo timeAgo($post->createdAt);  ?>
                                     <svg fill="currentColor" viewBox="0 0 16 16" width="1em" height="1em"
                                         class="x1lliihq x1k90msu x2h7rmj x1qfuztq xcza8v6 x1kpxq89 xsmyaan"
                                         title="Shared with Public">
@@ -393,15 +403,17 @@ if(file_exists(__DIR__ . '/autoload.php')){
                     <div class="post-body">
                         <div class="post-content">
                             <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Impedit optio necessitatibus id nemo iste quod?
+                                <?php echo $post->post_content ?? ''; ?>
                             </p>
                         </div>
                     </div>
-                    <div class="post-media">
-                        <img src="https://embedsocial.com/wp-content/uploads/2020/10/add-links-instagram-posts.jpg"
-                            alt="" />
-                    </div>
+                    <?php if(count($post->post_photos)>0) : ?>
+                        <div class="post-media">
+                            <img src="media/posts/<?php echo $post->post_photos[0]; ?>"
+                                alt="" />
+                        </div>
+
+                    <?php endif; ?>
                     <div class="post-comments">
                         <div class="comments-header">
                             <div class="reaction">
@@ -503,12 +515,16 @@ if(file_exists(__DIR__ . '/autoload.php')){
                     </div>
                 </div>
 
+                <?php endforeach; ?>
+                <?php else: ?>
+                <p>Post not found</p>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>
 
-    <!-- method for post modal -->
-    <?php include_once('post_function.php'); ?>
+
     <!-- create post modal start   -->
     <div class="modal fade" id="create_post_modal">
         <div class="modal-dialog modal-dialog-centered">
