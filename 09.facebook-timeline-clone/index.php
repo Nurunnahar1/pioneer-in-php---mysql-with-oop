@@ -1,5 +1,5 @@
-<?php  
-if(file_exists(__DIR__ . '/autoload.php')){
+<?php
+if (file_exists(__DIR__ . '/autoload.php')) {
     require_once __DIR__ . '/autoload.php';
 }
 
@@ -16,7 +16,7 @@ if(file_exists(__DIR__ . '/autoload.php')){
     <link rel="shortcut icon" href="./assets/icons/favicon.ico" type="image/x-icon" />
     <title>Facebook – log in or sign up</title>
     <link href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body>
@@ -267,7 +267,7 @@ if(file_exists(__DIR__ . '/autoload.php')){
                 <!-- Create Post Box  -->
 
                 <!-- method for post modal -->
-                <?php include_once('post_function.php'); ?>
+                <?php include_once 'post_function.php';?>
                 <div class="create-post">
                     <div class="create-post-header">
                         <img src="./assets/images/user.png" alt="" />
@@ -295,10 +295,10 @@ if(file_exists(__DIR__ . '/autoload.php')){
 
 $posts = array_reverse(json_decode(file_get_contents("./db/posts.json")));
 
-if(count($posts)>0):
+if (count($posts) > 0):
 
-    foreach($posts as $post):
-?>
+    foreach ($posts as $post):
+    ?>
                 <!-- User Post  -->
                 <div class="user-post">
                     <div class="user-post-header">
@@ -306,7 +306,7 @@ if(count($posts)>0):
                             <img src="media/user_photo/<?php echo $post->user_photo; ?>" alt="" />
                             <div class="user-details">
                                 <a class="author" href="#"> <?php echo $post->user_name; ?></a>
-                                <span><?php echo timeAgo($post->createdAt);  ?>
+                                <span><?php echo timeAgo($post->createdAt); ?>
                                     <svg fill="currentColor" viewBox="0 0 16 16" width="1em" height="1em"
                                         class="x1lliihq x1k90msu x2h7rmj x1qfuztq xcza8v6 x1kpxq89 xsmyaan"
                                         title="Shared with Public">
@@ -407,13 +407,55 @@ if(count($posts)>0):
                             </p>
                         </div>
                     </div>
-                    <?php if(count($post->post_photos)>0) : ?>
-                        <div class="post-media">
-                            <img src="media/posts/<?php echo $post->post_photos[0]; ?>"
-                                alt="" />
-                        </div>
+                    <?php if (count($post->post_photos) > 0): ?>
 
+                    <?php if (count($post->post_photos) == 1): ?>
+
+                    <div class="post-media">
+                        <img src="media/posts/<?php echo $post->post_photos[0]; ?>" alt="" />
+                    </div>
+
+                    <?php endif;?>
+                    <?php if (count($post->post_photos) == 2): ?>
+
+                    <div class="post-media photo2">
+                        <?php foreach ($post->post_photos as $photo2): ?>
+                        <img src="media/posts/<?php echo $photo2; ?>" alt="" />
+                        <?php endforeach;?>
+                    </div>
+
+                    <?php endif;?>
+                    <?php if (count($post->post_photos) == 3): ?>
+
+                    <div class="post-media photo3">
+                        <?php foreach ($post->post_photos as $photo3): ?>
+                        <img src="media/posts/<?php echo $photo3; ?>" alt="" />
+                        <?php endforeach;?>
+                    </div>
+
+                    <?php endif;?>
+                    <?php if (count($post->post_photos) == 4): ?>
+
+                    <div class="post-media photo4">
+
+                        <?php foreach ($post->post_photos as $photo4): ?>
+                        <img src="media/posts/<?php echo $photo4; ?>" alt="" />
+                        <?php endforeach;?>
+
+                    </div>
+
+                    <?php endif;?>
+
+                    <?php endif;?>
+
+                    <?php if($post->post_video): ?>
+                    <div class="post-media media-video">
+                        <video controls>
+                            <source src="media/videos/<?php echo $post->post_video; ?>">
+                        </video>
+                    </div>
                     <?php endif; ?>
+
                     <div class="post-comments">
                         <div class="comments-header">
                             <div class="reaction">
@@ -515,10 +557,10 @@ if(count($posts)>0):
                     </div>
                 </div>
 
-                <?php endforeach; ?>
+                <?php endforeach;?>
                 <?php else: ?>
                 <p>Post not found</p>
-                <?php endif; ?>
+                <?php endif;?>
 
             </div>
         </div>
