@@ -3,6 +3,21 @@ if (file_exists(__DIR__ . '/autoload.php')) {
     require_once __DIR__ . '/autoload.php';
 }
 
+if(isset($_GET['likeId'])){
+    $likeId = $_GET['likeId'];
+    $likeData = json_decode(file_get_contents('./db/posts.json'),true);
+
+    $likeUpdate = [];
+    foreach($likeData as $likeItem){
+        if($likeItem['id'] == $likeId){
+            $likeItem['likes'] = $likeItem['likes'] +1;
+        }
+        array_push($likeUpdate, $likeItem);
+    }
+    file_put_contents('./db/posts.json',json_encode($likeUpdate));
+    header("location:index.php");
+}
+
 ?>
 
 
@@ -527,10 +542,10 @@ if (count($posts) > 0):
                                         </li>
                                     </ul>
                                 </div>
-                                <a href="#">Kajal Datta, Sufia Sepu and 550 others</a>
+                                <a href="#"><?php echo $post->likes; ?> Likes</a>
                             </div>
                             <div class="counts">
-                                <a href="#">95 Comments</a>
+                                <a href="#"><?php echo count($post->comments); ?> Comments</a>
                             </div>
                         </div>
                         <div class="divider-0"></div>
@@ -538,7 +553,7 @@ if (count($posts) > 0):
                             <ul>
                                 <li>
                                     <span class="comment-icon"></span>
-                                    <span>Like</span>
+                                    <a href="?likeId=<?php echo $post->id; ?>">Like</a>
                                 </li>
 
                                 <li data-bs-toggle="modal" data-bs-target="#create_comment_modal">
