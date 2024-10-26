@@ -1,20 +1,23 @@
 <?php
 if (file_exists(__DIR__ . '/autoload.php')) {
     require_once __DIR__ . '/autoload.php';
-}
+}?>
 
-if(isset($_GET['likeId'])){
+<?php include_once 'post_function.php';?>
+<?php include_once "comment_function.php"; ?>
+<?php
+if (isset($_GET['likeId'])) {
     $likeId = $_GET['likeId'];
-    $likeData = json_decode(file_get_contents('./db/posts.json'),true);
+    $likeData = json_decode(file_get_contents('./db/posts.json'), true);
 
     $likeUpdate = [];
-    foreach($likeData as $likeItem){
-        if($likeItem['id'] == $likeId){
-            $likeItem['likes'] = $likeItem['likes'] +1;
+    foreach ($likeData as $likeItem) {
+        if ($likeItem['id'] == $likeId) {
+            $likeItem['likes'] = $likeItem['likes'] + 1;
         }
         array_push($likeUpdate, $likeItem);
     }
-    file_put_contents('./db/posts.json',json_encode($likeUpdate));
+    file_put_contents('./db/posts.json', json_encode($likeUpdate));
     header("location:index.php");
 }
 
@@ -35,6 +38,7 @@ if(isset($_GET['likeId'])){
 </head>
 
 <body>
+
     <!-- HOME HEADER  -->
     <div class="fb-home-header">
         <div class="fb-home-search">
@@ -282,7 +286,7 @@ if(isset($_GET['likeId'])){
                 <!-- Create Post Box  -->
 
                 <!-- method for post modal -->
-                <?php include_once 'post_function.php';?>
+
                 <div class="create-post">
                     <div class="create-post-header">
                         <img src="./assets/images/user.png" alt="" />
@@ -463,13 +467,13 @@ if (count($posts) > 0):
 
                     <?php endif;?>
 
-                    <?php if($post->post_video): ?>
+                    <?php if ($post->post_video): ?>
                     <div class="post-media media-video">
                         <video controls>
                             <source src="media/videos/<?php echo $post->post_video; ?>">
                         </video>
                     </div>
-                    <?php endif; ?>
+                    <?php endif;?>
 
                     <div class="post-comments">
                         <div class="comments-header">
@@ -556,7 +560,8 @@ if (count($posts) > 0):
                                     <a href="?likeId=<?php echo $post->id; ?>">Like</a>
                                 </li>
 
-                                <li data-bs-toggle="modal" data-bs-target="#create_comment_modal">
+                                <li data-bs-toggle="modal" data-bs-target="#create_comment_modal" id="comment_click"
+                                    commentId="<?php echo $post->id; ?>">
                                     <span class="comment-icon"></span>
                                     <span>Comment</span>
                                 </li>
@@ -628,26 +633,31 @@ if (count($posts) > 0):
                 <div class="modal-body">
                     <h2>Create Comment</h2>
                     <hr>
-                    <form action="">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        <div class="my-2">
+                            <input type="hidden" name="comment_id" placeholder="name" class="form-control comment_id"
+                                id="comment_id">
+                        </div>
                         <div class="my-2">
                             <label for="">Auth User Name</label>
-                            <input type="text" placeholder="name" class="form-control">
+                            <input type="text" name="comment_user_name" placeholder="name" class="form-control">
                         </div>
                         <div class="my-2">
                             <label for="">Auth User Photo</label>
-                            <input type="file" placeholder="photo" class="form-control">
+                            <input type="file" name="comment_user_photo" placeholder="photo" class="form-control">
                         </div>
                         <div class="my-2">
                             <label for="">Comment Content</label>
-                            <textarea name="" class="form-control" id=""></textarea>
+                            <textarea name="comment_content" class="form-control" id=""></textarea>
                         </div>
                         <div class="my-2">
                             <label for="">Comment Photo</label>
-                            <input type="file" placeholder="photo" multiple class="form-control">
+                            <input type="file" name="comment_photo" placeholder="photo" multiple class="form-control">
                         </div>
 
                         <div class="my-2">
-                            <input type="submit" class="btn btn-primary d-block w-100" value="Post">
+                            <input type="submit" class="btn btn-primary d-block w-100" value="Create Comment"
+                                name="comment_submit">
                         </div>
                     </form>
                 </div>
@@ -657,7 +667,15 @@ if (count($posts) > 0):
     <!-- create comment modal end   -->
 
 
+    <script>
+        const li = document.getElementById('comment_click');
+        const input = document.getElementById('comment_id');
 
+        li.onclick = () => {
+            const commentId = li.getAttribute('commentId');
+            input.value = commentId;
+        }
+    </script>
 
     <script src="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">
     </script>
