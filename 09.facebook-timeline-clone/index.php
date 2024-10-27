@@ -18,6 +18,8 @@ if (isset($_GET['likeId'])) {
         array_push($likeUpdate, $likeItem);
     }
     file_put_contents('./db/posts.json', json_encode($likeUpdate));
+
+
     header("location:index.php");
 }
 
@@ -560,7 +562,7 @@ if (count($posts) > 0):
                                     <a href="?likeId=<?php echo $post->id; ?>">Like</a>
                                 </li>
 
-                                <li data-bs-toggle="modal" data-bs-target="#create_comment_modal" id="comment_click"
+                                <li data-bs-toggle="modal" data-bs-target="#create_comment_modal" class="comment_click"
                                     commentId="<?php echo $post->id; ?>">
                                     <span class="comment-icon"></span>
                                     <span>Comment</span>
@@ -574,6 +576,21 @@ if (count($posts) > 0):
                         </div>
                         <div class="divider-0"></div>
                         <div class="comments-area"></div>
+                    </div>
+                    <div class="post-comments-area">
+                        <?php foreach($post->comments as $comment):?>
+
+                        <div class="comment-item">
+                            <img id="comment_auth_photo" src="./media/comment_user/<?php echo $comment->user_photo;?>"
+                                alt="">
+                            <div class="comment-data">
+                                <span><?php echo $comment->user;?></span>
+                                <p><?php echo $comment->comment_content;?></p>
+                                <img id="comment_photo" src="./media/comments/<?php echo $comment->comment_photo;?>"
+                                    alt="">
+                            </div>
+                        </div>
+                        <?php endforeach;?>
                     </div>
                 </div>
 
@@ -635,7 +652,7 @@ if (count($posts) > 0):
                     <hr>
                     <form action="" method="POST" enctype="multipart/form-data">
                         <div class="my-2">
-                            <input type="hidden" name="comment_id" placeholder="name" class="form-control comment_id"
+                            <input type="text" name="comment_id" placeholder="name" class="form-control comment_id"
                                 id="comment_id">
                         </div>
                         <div class="my-2">
@@ -668,13 +685,14 @@ if (count($posts) > 0):
 
 
     <script>
-        const li = document.getElementById('comment_click');
+        const li = document.querySelectorAll('.comment_click');
         const input = document.getElementById('comment_id');
 
-        li.onclick = () => {
-            const commentId = li.getAttribute('commentId');
-            input.value = commentId;
-        }
+        li.forEach(item => {
+            item.onclick = (event) => {
+                input.value = event.target.getAttribute('commentid');
+            }
+        });
     </script>
 
     <script src="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js">

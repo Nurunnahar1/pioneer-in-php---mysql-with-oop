@@ -1,5 +1,5 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['post_submit'] == "Post") {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['post_submit'])) {
     //get values from input
     $user_name = $_POST['post_user_name'];
     $post_content = $_POST['post_content'];
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['post_submit'] == "Post") {
               $post_photo_item =  fileUpload([
                     "tmp_name" =>
                     $_FILES['post_photos']['tmp_name'][$i],
-                    "name" => $_FILES['post_photos']['name'][$i],
+                  "name" => $_FILES['post_photos']['name'][$i],
                 ], "media/posts/");
 
                 array_push($post_photos, $post_photo_item);
@@ -60,4 +60,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['post_submit'] == "Post") {
 
     }
  
+    header("Location:index.php");
 }
