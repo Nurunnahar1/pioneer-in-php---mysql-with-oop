@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
          else{
             move_uploaded_file($tmp_name, 'photos/' . $photo_name);
-            $msg = createAlert("Data stored...");
+            $msg = createAlert("Data stored....");
             reset_form();
         }
  
@@ -42,69 +42,70 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 
-   <div class="container my-5">
-       <div class="row my-5 justify-content-center">
-           <div class="col-md-4 my-3">
-               <div class="card shadow">
-                   <div class="card-header">
-                       <h2 class="card-title">Update your file</h2>
-                   </div>
+    <div class="container my-5">
+        <div class="row my-5 justify-content-center">
+            <div class="col-md-4 my-3">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h2 class="card-title">Update your file</h2>
+                    </div>
 
-                   <div class="card-body">
-                       <p><?php echo $msg ?? ''; ?></p>
-                       <form action="" method="POST" enctype="multipart/form-data">
-                           <div class="my-3">
-                               <label for="">Name</label>
-                               <input type="text" class="form-control" name="name" value="<?php echo old('name'); ?>">
-                           </div>
-                           <div class="my-3">
-                               <label for="">Phone</label>
-                               <input type="text" class="form-control" name="phone" value="<?php echo old('phone'); ?>">
-                           </div>
-                           <div class="my-3">
-                               <label for="">Profile Photo</label>
-                               <label class="uploader">
-                                   <input type="file" id="profile-photo" name="photo_name" hidden class="form-control">
-                                   <img src="https://www.creativefabrica.com/wp-content/uploads/2021/06/28/Image-photo-icon-Graphics-13989898-1-580x386.jpg"
-                                       id="profile-photo-icon" alt="">
-                               </label>
-                               <div class="preview-image" style="display:none;">
-                                   <img src="" id="profile-photo-preview" alt="">
-                                   <button type="button" id="profile-photo-close"><i
-                                           class="fa-solid fa-xmark"></i></button>
-                               </div>
-                           </div>
-                           <div class="my-3">
-                               <input type="submit" value="Save" class="btn btn-success w-100">
-                           </div>
-                       </form>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </div>
+                    <div class="card-body">
+                        <p><?php echo $msg ?? ''; ?></p>
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="my-3">
+                                <label for="">Name</label>
+                                <input type="text" class="form-control" name="name" value="<?php echo old('name'); ?>">
+                            </div>
+                            <div class="my-3">
+                                <label for="">Phone</label>
+                                <input type="text" class="form-control" name="phone"
+                                    value="<?php echo old('phone'); ?>">
+                            </div>
+                            <div class="my-3">
+                                <label for="">Profile Photo</label>
+                                <label class="uploader">
+                                    <input type="file" id="profile-photo" name="photo_name" hidden class="form-control">
+                                    <img src="https://www.creativefabrica.com/wp-content/uploads/2021/06/28/Image-photo-icon-Graphics-13989898-1-580x386.jpg"
+                                        id="profile-photo-icon" alt="">
+                                </label>
+                                <div class="preview-image" style="display:none;">
+                                    <img src="" id="profile-photo-preview" alt="">
+                                    <button type="button" id="profile-photo-close"><i
+                                            class="fa-solid fa-xmark"></i></button>
+                                </div>
+                            </div>
+                            <div class="my-3">
+                                <input type="submit" value="Save" class="btn btn-success w-100">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-   <script>
-       const profilePhoto = document.getElementById("profile-photo");
-       const profilePhotoIcon = document.getElementById("profile-photo-icon");
-       const profilePhotoPreview = document.getElementById('profile-photo-preview');
-       const profilePhotoClose = document.getElementById('profile-photo-close');
-       const previewContainer = document.querySelector('.preview-image');
+    <script>
+        const profilePhoto = document.getElementById("profile-photo");
+        const profilePhotoIcon = document.getElementById("profile-photo-icon");
+        const profilePhotoPreview = document.getElementById('profile-photo-preview');
+        const profilePhotoClose = document.getElementById('profile-photo-close');
+        const previewContainer = document.querySelector('.preview-image');
 
-       profilePhoto.onchange = (event) => {
-           const imageURL = URL.createObjectURL(event.target.files[0]);
-           profilePhotoPreview.setAttribute("src", imageURL);
+        profilePhoto.onchange = (event) => {
+            const imageURL = URL.createObjectURL(event.target.files[0]);
+            profilePhotoPreview.setAttribute("src", imageURL);
 
-           profilePhotoIcon.style.display = "none";
-           previewContainer.style.display = "block";
-       }
+            profilePhotoIcon.style.display = "none";
+            previewContainer.style.display = "block";
+        }
 
-       profilePhotoClose.onclick = () => {
-           profilePhotoPreview.setAttribute("src", "");
-           profilePhotoIcon.style.display = "block";
-           previewContainer.style.display = "none";
-       }
-   </script>
-   </body>
+        profilePhotoClose.onclick = () => {
+            profilePhotoPreview.setAttribute("src", "");
+            profilePhotoIcon.style.display = "block";
+            previewContainer.style.display = "none";
+        }
+    </script>
+</body>
 
 </html>
